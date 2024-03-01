@@ -12,7 +12,20 @@ async function getAllTodos(req, res, next) {
   });
 }
 
-function addTodo(req, res, next) {}
+async function addTodo(req, res, next) {
+  const todoText = req.body.text;
+  let todo;
+  todo = new Todo(todoText);
+  let insertedId;
+  try {
+    const result = await todo.save();
+    insertedId = result.insertedId;
+  } catch (error) {
+    return next(error);
+  }
+  todo.id = insertedId.toString();
+  res.json({ message: "added todo Successfully!", createdTodo: todo });
+}
 
 function updateTodo(req, res, next) {}
 
