@@ -6,6 +6,14 @@ class Todo {
     this.text;
     this.id;
   }
+
+  static async getAllTodos() {
+    const todoDocuments = await db.getDb().collection("todos").find().toArray();
+    return todoDocuments.map(function (todoDocument) {
+      return new Todo(todoDocuments._id, todoDocuments.text);
+    });
+  }
+
   save() {
     if (this.id) {
       const todoId = new mongodb.ObjectId(this.id);
