@@ -1,10 +1,22 @@
-function getAllTodos() {}
+const Todo = require("../models/todo.model");
 
-function addTodo() {}
+async function getAllTodos(req, res, next) {
+  let todos;
+  try {
+    todos = await Todo.getAllTodos();
+  } catch (error) {
+    return next(error);
+  }
+  res.json({
+    todos: todos,
+  });
+}
 
-function updateTodo() {}
+function addTodo(req, res, next) {}
 
-function deleteTodo() {}
+function updateTodo(req, res, next) {}
+
+function deleteTodo(req, res, next) {}
 
 module.exports = {
   getAllTodos: getAllTodos,
