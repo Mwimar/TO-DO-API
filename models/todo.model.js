@@ -1,11 +1,21 @@
 const db = require("../data/database");
+const mongodb = require("mongodb");
 
 class Todo {
-  constructor(text) {
+  constructor(text, id) {
     this.text;
+    this.id;
   }
   save() {
-    return db.getDb().collection("todos").insertOne({ text: this.text });
+    if (this.id) {
+      const todoId = new mongodb.ObjectId(this.id);
+      return db
+        .getDb()
+        .collection("todos")
+        .updateOne({ _id: todoId }, { $set: { text: this.text } });
+    } else {
+      return db.getDb().collection("todos").insertOne({ text: this.text });
+    }
   }
 }
 
