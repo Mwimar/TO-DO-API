@@ -17,6 +17,14 @@ class Todo {
       return db.getDb().collection("todos").insertOne({ text: this.text });
     }
   }
+
+  delete() {
+    if (!this.id) {
+      throw new Error("Trying to delete quote without Id!!");
+    }
+    const todoId = new mongodb.ObjectId(this.id);
+    return db.getDb().collection("todos").deleteOne({ _id: todoId });
+  }
 }
 
 module.exports = Todo;
