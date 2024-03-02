@@ -10,7 +10,7 @@ class Todo {
   static async getAllTodos() {
     const todoDocuments = await db.getDb().collection("todos").find().toArray();
     return todoDocuments.map(function (todoDocument) {
-      return new Todo(todoDocuments._id, todoDocuments.text);
+      return new Todo(todoDocuments.text, todoDocuments._id);
     });
   }
 
