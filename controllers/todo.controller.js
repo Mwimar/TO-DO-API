@@ -41,7 +41,18 @@ async function updateTodo(req, res, next) {
   res.json({ message: "todo updated successfully", Updatedtodo: todo });
 }
 
-function deleteTodo(req, res, next) {}
+async function deleteTodo(req, res, next) {
+  const todoId = req.params.id;
+
+  const todo = new Todo(null, todoId);
+
+  try {
+    await todo.delete();
+  } catch (error) {
+    return next(error);
+  }
+  res.json({ message: "todo deleted", Updatedtodo: todo });
+}
 
 module.exports = {
   getAllTodos: getAllTodos,
