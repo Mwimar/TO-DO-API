@@ -27,7 +27,19 @@ async function addTodo(req, res, next) {
   res.json({ message: "added todo Successfully!", createdTodo: todo });
 }
 
-function updateTodo(req, res, next) {}
+async function updateTodo(req, res, next) {
+  const todoId = req.params.id;
+  const newTodoText = req.body.newText;
+
+  const todo = new Todo(newTodoText, todoId);
+
+  try {
+    await todo.save();
+  } catch (error) {
+    return next(error);
+  }
+  res.json({ message: "todo updated successfully", Updatedtodo: todo });
+}
 
 function deleteTodo(req, res, next) {}
 
