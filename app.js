@@ -18,7 +18,7 @@ app.use(function (error, req, res, next) {
 
 db.initDb()
   .then(function () {
-    console.log("Database connected successfully!");
+    // console.log("Database connected successfully!");
     app.listen(3000);
   })
   .catch(function (error) {

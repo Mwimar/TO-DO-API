@@ -3,14 +3,14 @@ const mongodb = require("mongodb");
 
 class Todo {
   constructor(text, id) {
-    this.text;
-    this.id;
+    this.text = text;
+    this.id = id;
   }
 
   static async getAllTodos() {
     const todoDocuments = await db.getDb().collection("todos").find().toArray();
     return todoDocuments.map(function (todoDocument) {
-      return new Todo(todoDocuments.text, todoDocuments._id);
+      return new Todo(todoDocument.text, todoDocument._id);
     });
   }
 
